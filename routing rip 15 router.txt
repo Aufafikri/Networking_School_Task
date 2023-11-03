@@ -1,0 +1,391 @@
+KONFIGURASI ROUTING RIP DI CISCO PACKET TRACER
+by Evst 🍗
+
+ROUTER 1 (SERVER UTAMA)
+-en
+-conf t
+-int se2/0
+-ip add 2.2.2.2
+-no sh
+-ex
+-int se3/0
+-ip add 6.6.6.2
+-no sh
+-ex
+-int se6/0
+-ip add 10.10.10.2
+-no sh
+-ex
+-int se7/0
+-ip add 14.14.14.2
+-no sh
+-ex
+
+Router 2 (ujung kiri) => {
+-en
+-conf t
+-int se2/0
+-ip add 2.2.2.1
+-no sh
+-ex
+-int se3/0
+-ip add 3.3.3.1
+-no sh
+-ex
+-int se6/0
+-ip add 4.4.4.1
+-no sh
+-ex
+-int se7/0
+-ip add 5.5.5.1
+-no sh
+-ex
+
+Router 2 (parent ke 1)
+-en
+-conf t
+-int se2/0
+-ip add 3.3.3.2
+-no sh
+-ex
+-int fa0/0
+-ip add 192.168.1.1
+-no sh
+-ex
+
+Router 2 (parent ke 2)
+-en
+-conf t
+-int se2/0
+-ip add 4.4.4.2
+-no sh
+-ex
+-int fa0/0
+-ip add 192.168.2.1
+-no sh
+-ex
+
+Router 2 (parent ke 3)
+-en
+-conf t
+-int se2/0
+-ip add 5.5.5.2
+-no sh
+-ex
+-int fa0/0
+-ip add 192.168.3.1
+-no sh
+-ex
+
+}
+
+Router 3 (Bawah Kiri Server Utama) => {
+-en
+-conf t
+-int se2/0
+-ip add 6.6.6.1
+-no sh
+-ex
+-int se3/0
+-ip add 7.7.7.1
+-no sh
+-ex
+-int se6/0
+-ip add 8.8.8.1
+-no sh
+-ex
+-int se7/0
+-ip add 9.9.9.1
+-no sh
+-ex
+
+Router 3 (parent ke 1)
+-en
+-conf t
+-int se2/0
+-ip add 7.7.7.2
+-no sh
+-ex
+-int fa0/0
+-ip add 192.168.4.1
+-no sh
+-ex
+
+Router 3 (parent ke 2)
+-en
+-conf t
+-int se2/0
+-ip add 8.8.8.2
+-no sh
+-ex
+-int fa0/0
+-ip add 192.168.5.1
+-no sh
+-ex
+
+Router 3 (parent ke 3)
+-en
+-conf t
+-int se2/0
+-ip add 9.9.9.2
+-no sh
+-ex
+-int fa0/0
+-ip add 192.168.6.1
+-no sh
+-ex
+
+}
+
+Router 4 (Bawah Kanan Server Utama) => {
+-en
+-conf t
+-int se2/0 
+-ip add 10.10.10.1
+-no sh
+-ex
+-int se3/0
+-ip add 11.11.11.1
+-no sh
+-ex
+-int se6/0
+-ip add 12.12.12.1
+-no sh
+-ex
+-int se7/0
+-ip add 13.13.13.1
+-no sh
+-ex
+
+Router 4 (parent ke 1)
+-en
+-conf t
+-int se2/0
+-ip add 11.11.11.2
+-no sh
+-ex
+-int fa0/0
+-ip add 192.168.7.1
+-no sh
+-ex
+
+Router 4 (parent ke 2)
+-en
+-conf t
+-int se2/0
+-ip add 12.12.12.2
+-no sh
+-ex
+-int fa0/0
+-ip add 192.168.8.1
+-no sh
+-ex
+
+Router 4 (parent ke 3)
+-en
+-conf t
+-int se2/0
+-ip add 13.13.13.2
+-no sh
+-ex
+-int fa0/0
+-ip add 192.168.9.1
+-no sh
+-ex
+
+}
+
+Router 5 (Ujung Kanan) => {
+-en
+-conf t
+-int se2/0
+-ip add 14.14.14.1
+-no sh
+-ex
+-int se3/0
+-ip add 15.15.15.1
+-no sh
+-ex
+
+Router 5 (parent ke 1)
+-en
+-conf t
+-int se2/0
+-ip add 15.15.15.2
+-no sh
+-ex
+-int fa0/0
+-ip add 192.168.10.1
+-no sh
+-ex
+
+}
+
+ROUTING RIP DI SEMUA ROUTER 
+-router rip
+-version 2
+-network 192.168.1.0
+-network 192.168.2.0
+-network 192.168.3.0
+-network 192.168.4.0
+-network 192.168.5.0
+-network 192.168.6.0
+-network 192.168.7.0
+-network 192.168.8.0
+-network 192.168.9.0
+-network 192.168.10.0
+-network 2.2.2.0
+-network 3.3.3.0
+-network 4.4.4.0
+-network 5.5.5.0
+-network 6.6.6.0
+-network 7.7.7.0
+-network 8.8.8.0
+-network 9.9.9.0
+-network 10.10.10.0
+-network 11.11.11.0
+-network 12.12.12.0
+-network 13.13.13.0
+-network 14.14.14.0
+-network 15.15.15.0
+-no auto-summary
+-passive interface fa1/0
+-ex
+
+===================================================
+DIBUTUHKAN :
+-15 ROUTER-PT
+-10 SWITCH 2960
+-18 PC
+-19 LAPTOP
+-1 ACCESPOINT
+
+SAMBUNGAN KABEL :
+-ROUTER KE ROUTER => SERIAL DCE
+-ROUTER KE SWITCH => STRAIGHT
+-LAPTOP KE ROUTER => CONSOLE
+
+IP ADDRESS : 
+ROUTER KE ROUTER => KELAS A
+ROUTER KE SWITCH => KELAS C
+
+
+TOOLS ROUTER MENJADI 4 KABEL SERIAL => 
+(PT-ROUTER-NM-1S)
+
+TOOLS LAPTOP MENJADI WIRELESS KE ACCESS POINT =>
+(WPC300N)
+
+===================================================
+KONFIGURASI PC ROUTER 2 (PARENT KE 1)
+
+PC 1 => IP ADDRESS = 192.168.1.2
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.1.1
+
+PC 2 => IP ADDRESS = 192.168.1.3
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.1.1
+
+KONFIGURASI PC ROUTER 2 (PARENT KE 2)
+
+PC 1 => IP ADDRESS = 192.168.2.2
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.2.1
+
+PC 2 => IP ADDRESS = 192.168.2.3
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.2.1
+
+KONFIGURASI PC ROUTER 2 (PARENT KE 3)
+
+PC 1 => IP ADDRESS = 192.168.3.2
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.3.1
+
+PC 2 => IP ADDRESS = 192.168.3.3
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.3.1
+
+KONFIGURASI PC ROUTER 3 (PARENT KE 1)
+
+PC 1 => IP ADDRESS = 192.168.4.2
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.4.1
+
+PC 2 => IP ADDRESS = 192.168.4.3
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.4.1
+
+KONFIGURASI PC ROUTER 3 (PARENT KE 2)
+
+PC 1 => IP ADDRESS = 192.168.5.2
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.5.1
+
+PC 2 => IP ADDRESS = 192.168.5.3
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.5.1
+
+KONFIGURASI PC ROUTER 3 (PARENT KE 3)
+
+PC 1 => IP ADDRESS = 192.168.6.2
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.6.1
+
+PC 2 => IP ADDRESS = 192.168.6.3
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.6.1
+
+KONFIGURASI PC ROUTER 4 (PARENT KE 1)
+
+PC 1 => IP ADDRESS = 192.168.7.2
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.7.1
+
+PC 2 => IP ADDRESS = 192.168.7.3
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.7.1
+
+KONFIGURASI PC ROUTER 4 (PARENT KE 2)
+
+PC 1 => IP ADDRESS = 192.168.8.2
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.8.1
+
+PC 2 => IP ADDRESS = 192.168.8.3
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.8.1
+
+KONFIGURASI PC ROUTER 4 (PARENT KE 3)
+
+PC 1 => IP ADDRESS = 192.168.9.2
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.9.1
+
+PC 2 => IP ADDRESS = 192.168.9.3
+        SUBNET MASK = 255.255.255.0
+        DEFAULT GATEWAY = 192.168.9.1
+
+KONFIGURASI LAPTOP ROUTER 5 
+
+LAPTOP 1 => IP ADDRESS = 192.168.10.2
+            SUBNET MASK = 255.255.255.0
+            DEFAULT GATEWAY = 192.168.10.1
+
+
+LAPTOP 2 => IP ADDRESS = 192.168.10.3
+            SUBNET MASK = 255.255.255.0
+            DEFAULT GATEWAY = 192.168.10.1
+
+
+LAPTOP 3 => IP ADDRESS = 192.168.10.4
+            SUBNET MASK = 255.255.255.0
+            DEFAULT GATEWAY = 192.168.10.1
+
+
+LAPTOP 4 => IP ADDRESS = 192.168.10.5
+            SUBNET MASK = 255.255.255.0
+            DEFAULT GATEWAY = 192.168.10.1
+
+
